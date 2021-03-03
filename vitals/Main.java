@@ -18,4 +18,9 @@ public class Main {
     assertFalse(LiionBatteryValidation.batteryIsOk(25, 10, 0.0f));
     assertFalse(LiionBatteryValidation.batteryIsOk(25, 60, 1.0f));
   }
+
+  public static void main(final String[] args)
+  {
+    //
+  }
 }
