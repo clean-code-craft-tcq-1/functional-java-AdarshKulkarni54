@@ -1,23 +1,21 @@
 package vitals;
 
-public class Main {
-    static boolean batteryIsOk(float temperature, float soc, float chargeRate) {
-        if(temperature < 0 || temperature > 45) {
-            System.out.println("Temperature is out of range!");
-            return false;
-        } else if(soc < 20 || soc > 80) {
-            System.out.println("State of Charge is out of range!");
-            return false;
-        } else if(chargeRate > 0.8) {
-            System.out.println("Charge Rate is out of range!");
-            return false;
-        }
-        return true;
-    }
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    public static void main(String[] args) {
-        assert(batteryIsOk(25, 70, 0.7f) == true);
-        assert(batteryIsOk(50, 85, 0.0f) == false);
-        System.out.println("Some more tests needed");
-    }
+import org.junit.Test;
+
+public class Main {
+
+  @Test
+  public void testBatteryStatus()
+  {
+    assertTrue(LiionBatteryValidation.batteryIsOk(25, 70, 0.7f));
+    assertFalse(LiionBatteryValidation.batteryIsOk(50, 85, 0.0f));
+    assertFalse(LiionBatteryValidation.batteryIsOk(25, 15, 0.0f));
+    assertFalse(LiionBatteryValidation.batteryIsOk(25, 70, 0.9f));
+    assertFalse(LiionBatteryValidation.batteryIsOk(-10, 85, 0.0f));
+    assertFalse(LiionBatteryValidation.batteryIsOk(25, 10, 0.0f));
+    assertFalse(LiionBatteryValidation.batteryIsOk(25, 60, 1.0f));
+  }
 }
