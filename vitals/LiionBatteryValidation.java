@@ -2,29 +2,16 @@ package vitals;
 
 public class LiionBatteryValidation
 {
-  static boolean batteryIsOk(final float temperature, final float soc, final float chargeRate)
+  private LiionBatteryValidation()
   {
-    LiionBattery liionBattery = new LiionBattery(temperature, soc, chargeRate);
-    if (liionBattery.isRangeGreaterThan(45).or(liionBattery.isLessThan(0)).test(temperature))
-    {
-      displayMessage("Temperature is out of range!");
-      return false;
-    }
-    else if (liionBattery.isRangeGreaterThan(80).or(liionBattery.isLessThan(20)).test(soc))
-    {
-      displayMessage("State of Charge is out of range!");
-      return false;
-    }
-    else if (liionBattery.isRangeGreaterThan(0.8f).test(chargeRate))
-    {
-      displayMessage("Charge Rate is out of range!");
-      return false;
-    }
-    return true;
+    //
   }
 
-  private static void displayMessage(final String outOfRangeMessage)
+  static boolean batteryIsOk(final float temperature, final float soc, final float chargeRate)
   {
-    System.out.println(outOfRangeMessage);
+    Boolean isTemperatureOutOfRange = new TemperatureRange().apply(temperature);
+    Boolean isSOCOutOfRange = new SOCRange().apply(soc);
+    Boolean isChargeRateOutOfRange = new ChargeRateRange().apply(chargeRate);
+    return isTemperatureOutOfRange && isSOCOutOfRange && isChargeRateOutOfRange;
   }
 }
